@@ -1,0 +1,159 @@
+﻿@using Ecommerce.WebApp.Areas.Admin.ViewModel
+@model IEnumerable<ProductViewModel>
+@{
+    ViewData["Title"] = "Index";
+}
+
+@foreach (var item in Model)
+{
+    <li>@item.Name</li>
+}
+
+<!DOCTYPE html>
+
+
+@*<div class="top">
+        <nav aria-label="breadcrumb">
+            <div class="top-nav fixed-top">
+                    <button type="button" class="btn btn-primary btn-labeled">
+                        <i class="fas fa-plus"><a class="" href="/Admin/Product/Create"></a></i>Add
+                    </button>
+
+            </div>
+        </div>
+    </div>*@
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+
+            <!-- /.panel-heading -->
+            <div class="panel-body">
+
+                @using (Html.BeginForm("Index", "Product", FormMethod.Post))
+                {
+                    <div class="form-group">
+                        <div class="row col-lg-12">
+                            <div class="col-md-4">
+
+                                <a class="btn btn-primary" href="/Admin/Product/Create"><i class="fas fa-plus"></i>Add</a>
+                            </div>
+                            <div class="col-md-4">
+
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" value="@ViewBag.searchstring" class="form-control" placeholder="Tìm Kiếm" name="searchString" />
+                            </div>
+                            @*<div class="col-md-4">
+                                    <button type="submit" class="btn btn-success" name="tim-kiem">Tim Kiem</button>
+                                </div>*@
+
+                        </div>
+                    </div>
+                }
+
+                <div class="col-lg-12">
+                    <div class="container-fluid app">
+                        <table class="table table-borderless" id="dataTables-example">
+                            <thead>
+                                <tr>
+                                    <th class="">ID</th>
+                                    <th class="">Name</th>
+                                    <th class="">Image</th>
+                                    <th class="">Moreimages</th>
+                                    <th class="">Category Name</th>
+                                    <th class="">Status</th>
+                                    <th class="">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr class="">
+                                        <td class="">@item.ID</td>
+                                        <td class="">@item.Name</td>
+                                        <td class=""><img style="width: 60px;height: 60px;" src="" /></td>
+                                        <td class=""><img src="" /></td>
+                                        <td class=""></td>
+                                        <td class=""></td>
+
+
+                                        <td class="text-center">
+                                            <a class="btn btn-danger btn-icon btn-sm" href="@Url.RouteUrl("ProductDelete", new { id= item.ID})"><span class="fas fa-trash"> </span></a>
+                                            <a class="btn btn-info btn-icon btn-sm" href="@Url.RouteUrl("ProductEdit", new { id= item.ID})"><span class="fas fa-edit"> </span></a>
+                                            @*<button title="Delete" class="btn btn-danger btn-icon"><i class="fas fa-trash"></i></button>*@
+                                            @*<a class="fas fa-trash-alt btn-sm" href="@Url.RouteUrl("ProductDelete", new { id= item.ID})">Xóa</a>*@
+                                            @*<a class="btn btn-info fa fa-edit btn-sm" href="@Url.RouteUrl("ProductEdit", new { id= item.ID})">Sửa</a>*@
+                                            @* @Ajax.ActionLink("Xoa", "Delete", new { @ID = item.ID }, new AjaxOptions { }, new { @class = "btn btn-lg btn-danger fa fa-times" })*@
+
+
+                                            @*@Ajax.ActionLink("Sua", "Edit", new { @ID = item.ID }, new AjaxOptions { }, new { @class = "btn btn-lg btn-info fa fa-edit" })*@
+
+                                        </td>
+                                    </tr>
+                                    
+                                }
+
+
+                            </tbody>
+                        </table>
+
+                        @*@Html.PagedListPager(Model, page => Url.Action("Index", new { page, @earchString = ViewBag.searchstring }), new PagedListRenderOptions() { UlElementClasses = new[] { "pagination", "pull-right" } })﻿*@
+                    </div>
+
+
+                </div>
+                <!-- /.panel-body -->
+            </div>
+            <!-- /.panel -->
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+</div>
+
+
+<div class="container-fluid app" :class="{ ready: !loading }">
+    <table class="table table-borderless">
+        <thead>
+            <tr>
+                <th>Username</th>
+                <th>Email address</th>
+                <th>Roles</th>
+                <th class="actions one"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr v-for="user in users">
+                <td>
+                    <img v-if="user.gravatarUrl" :src="user.gravatarUrl" :alt="'Gravatar for ' + user.email" style="padding-right: 10px">
+
+                    <a :href="'/manager/user/' + user.id">{{ user.userName }}</a>
+
+
+
+                </td>
+                <td>{{ user.email }}</td>
+                <td>
+                    {{ user.userRoles.join(', ') }}
+                </td>
+                <td class="actions one">
+                    <a class="danger" v-on:click.prevent="remove(user)" v-if="user.userName != currentUserName">
+                        <span class="fa fa-trash"></span>
+
+                    </a>
+
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+</div>
+@*<html>
+    <head>
+        <title>File Manager</title>
+        @this.RenderHead(fileManager)
+    </head>
+    <body>
+        @this.RenderBody(fileManager)
+    </body>
+    </html>*@
