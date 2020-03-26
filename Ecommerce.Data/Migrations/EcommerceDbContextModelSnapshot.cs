@@ -39,15 +39,15 @@ namespace Ecommerce.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("c42b5b2c-f7cc-4ef1-ae54-8b286e75bb9a"),
-                            ConcurrencyStamp = "a348fee6-0997-4131-883e-662d1f034cea",
+                            Id = new Guid("b8826aca-3e3f-40de-b7e6-3a7bd2418d9a"),
+                            ConcurrencyStamp = "8831506b-c767-4028-b640-929f77ffeeeb",
                             Name = "admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = new Guid("18c1f2b1-07ba-4f77-b440-f42203788da8"),
-                            ConcurrencyStamp = "1fb8706c-4e27-4001-9264-bd59376c5dbe",
+                            Id = new Guid("5886c464-caa9-456e-887c-a9d61b72a2d8"),
+                            ConcurrencyStamp = "46ff2a4f-7468-46ec-8f27-db531f241f39",
                             Name = "member",
                             NormalizedName = "MEMBER"
                         });
@@ -115,17 +115,17 @@ namespace Ecommerce.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("af66380f-a899-4a20-ac55-077ffe0ef848"),
+                            Id = new Guid("5401c1c4-ba89-4090-a015-a5ee27da0c56"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "9acbbd39-b0da-4efd-8d29-7f5b82ccf73d",
+                            ConcurrencyStamp = "c94c5188-bb8f-4c65-bd26-92475ec2dce1",
                             Email = "phungnhatphu4@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "phungnhatphu4@gmail.com",
                             NormalizedUserName = "admin",
-                            PasswordHash = "AQAAAAEAACcQAAAAEJuBB/Po1XlnLlG/x9aDoIKgo8JI0XYD9PN0sli06dJxzEEFTsAmri1gdmSO84d5+Q==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEPWxZrz79BszhvUxMT9IDtzQ1owMb+LWNdUuUtS3OM+cAUdngqyp94wCttLNpmWL9A==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "6a546e9c-dd0e-4753-9a64-c06acc601436",
+                            SecurityStamp = "664cbf9d-13d6-405c-a975-3a2b0809d634",
                             TwoFactorEnabled = false,
                             UserName = "admin"
                         });
@@ -319,7 +319,7 @@ namespace Ecommerce.Data.Migrations
                     b.Property<int>("DisplayOrder")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("FileSize")
+                    b.Property<long>("FileSize")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("ImagePath")
@@ -372,16 +372,6 @@ namespace Ecommerce.Data.Migrations
                         {
                             ProductID = 1,
                             ProductCategoryID = 1
-                        },
-                        new
-                        {
-                            ProductID = 1,
-                            ProductCategoryID = 2
-                        },
-                        new
-                        {
-                            ProductID = 2,
-                            ProductCategoryID = 1
                         });
                 });
 
@@ -410,14 +400,14 @@ namespace Ecommerce.Data.Migrations
                             Id = 1,
                             ClaimType = "AdminClaim",
                             ClaimValue = "Admin role claim",
-                            RoleId = new Guid("c42b5b2c-f7cc-4ef1-ae54-8b286e75bb9a")
+                            RoleId = new Guid("b8826aca-3e3f-40de-b7e6-3a7bd2418d9a")
                         },
                         new
                         {
                             Id = 2,
                             ClaimType = "MemberClaim",
                             ClaimValue = "Menber role claim",
-                            RoleId = new Guid("18c1f2b1-07ba-4f77-b440-f42203788da8")
+                            RoleId = new Guid("5886c464-caa9-456e-887c-a9d61b72a2d8")
                         });
                 });
 
@@ -485,8 +475,8 @@ namespace Ecommerce.Data.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = new Guid("af66380f-a899-4a20-ac55-077ffe0ef848"),
-                            RoleId = new Guid("c42b5b2c-f7cc-4ef1-ae54-8b286e75bb9a")
+                            UserId = new Guid("5401c1c4-ba89-4090-a015-a5ee27da0c56"),
+                            RoleId = new Guid("b8826aca-3e3f-40de-b7e6-3a7bd2418d9a")
                         });
                 });
 

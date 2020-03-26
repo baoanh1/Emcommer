@@ -1,0 +1,196 @@
+﻿@using Ecommerce.ViewModels.Catalog.Products.Manage
+@model ProductCreateRequest
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Areas/View/Shared/_Layout.cshtml";
+}
+
+
+
+<h1>Create</h1>
+
+<form action="/productapi/create" method="post" enctype="multipart/form-data">
+    <div id="productedit">
+        <div class="top">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item">Settings</li>
+                    <li class="breadcrumb-item" aria-current="page"><a href="@Url.Action("List")">Products</a></li>
+                    <li v-if="!loading" class="breadcrumb-item active" aria-current="page"><span v-if="isNew">Add</span><span v-else>Edit</span></li>
+
+
+
+
+
+                </ol>
+            </nav>
+
+            <div class="container-fluid app" :class="{ ready: !loading }">
+                <div class="top-nav">
+
+                    @*<button type="submit" class="btn btn-labeled btn-success pull-right" v-on:click.prevent="save()">
+                            <i class="fas fa-save"></i>
+                            <span class="btn-label">
+                                <i class="fas fa-check"></i>
+                            </span>
+                            <span v-if="isNew">Add</span><span v-else>Save</span>
+                        </button>*@
+
+
+                    <button data-toggle="modal" data-target="#pageSettings" class="btn btn-primary btn-icon"><i class="fas fa-cog"></i></button> <!---->
+                    <div role="group" class="btn-group d-none d-lg-inline-flex">
+                        <button type="submit" class="btn btn-primary btn-labeled" v-on:click.prevent="save()">
+                            <i class="fas fa-save"></i>
+                            Save
+                        </button> <!---->
+                    </div>
+                    <button title="Save" class="btn btn-primary btn-icon d-inline-block d-lg-none"><i class="fas fa-save"></i></button>
+                    <div role="group" class="btn-group d-none d-lg-inline-flex">
+                        <button type="button" class="btn btn-success btn-labeled">
+                            <i class="fas fa-check"></i>
+                            Publish
+                        </button> <!---->
+                    </div>
+                    <button title="Publish" class="btn btn-success btn-icon d-inline-block d-lg-none"><i class="fas fa-check"></i></button> <!---->
+                    <button v-if="!isNew && productModel" title="Radera" class="btn btn-danger btn-icon" v-on:click.prevent="remove(productModel.product.id)"><i class="fas fa-trash"></i></button>
+
+                </div>
+            </div>
+        </div>
+        <div id="pageSettings" class="modal fade" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <!-- Header -->
+                    <div class="modal-header border-bottom-0">
+                        <h5 class="modal-title"><i class="fas fa-cog"></i> Settings</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div v-if="productModel" class="container-fluid app" :class="{ ready: !loading }">
+            <div class="card">
+                <div class="card-header">
+                    <span class="title">General information</span>
+                </div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <label>Title</label>
+                        <input name="@Model.Name" class="form-control small" maxlength="128" required />
+                        <div class="invalid-feedback">
+                            Title required.
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="">Image</label>
+                        <br />
+
+                        <input id="files" name="files" type="file" class="form-control" style="visibility:unset;" onchange="preview_images()" multiple />
+                        <div class="row" id="image_preview"></div>
+
+                        @*<input type="text" v-model="productModel.productImage.imagePath" class="btn btn-primary" id="txtSelectedFile" value="Add image" onclick="openCustomRoxy2()">
+                            <div id="roxyCustomPanel2" style="display: none;">
+                                <iframe src="/lib/fileman/index.html?integration=custom&type=image&txtFieldId=txtSelectedFile" style="width:100%;height:100%; border:1px solid #ccc" frameborder="0">
+                                </iframe>
+                            </div>*@
+                    </div>
+
+
+                    <div class="card">
+                        <div class="card-header">
+                            <span class="title">Product</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label>Price</label>
+                                            <input name="@Model.Price" class="form-control small" maxlength="128" required />
+                                            <div class="invalid-feedback">
+                                                required
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label>PromotionPrice</label>
+                                            <input name="@Model.PromotionPrice" class="form-control small" maxlength="128" required />
+                                            <div class="invalid-feedback">
+                                                required
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label>Quantity</label>
+                                            <input name="@Model.Quantity" class="form-control small" maxlength="128" required />
+                                            <div class="invalid-feedback">
+                                                required
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <span class="title">Product Category</span>
+                </div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <select class="form-control" :required="true" name="@Model.categoryID">
+                            <option value="0">Select category </option>
+                            <option v-for="option in getProductRows()"
+                                    v-bind:value="option.id"
+                                    :selected="option == 'Select category'">
+                                {{ option.name }}
+                            </option>
+                        </select>
+                        <div class="invalid-feedback">
+                            required
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<script type="text/javascript">
+    tinymce.init({
+        selector: '#content',
+        plugins: "image code",
+        image_title: true,
+        automatic_uploads: true,
+        file_picker_types: 'image',
+        file_picker_callback: function (cb, value, meta) {
+            var input = document.createElement('input');
+            input.setAttribute('type', 'file');
+            input.setAttribute('accept', 'image/*');
+            input.onchange = function () {
+                var file = this.files[0];
+                var reader = new FileReader();
+
+                reader.onload = function () {
+                    var id = 'blobid' + (new Date()).getTime();
+                    var blobCache = tinymce.activeEditor.editorUpload.blobCache;
+                    var base64 = reader.result.split(',')[1];
+                    var blobInfo = blobCache.create(id, file, base64);
+                    blobCache.add(blobInfo);
+                    cb(blobInfo.blobUri(), { title: file.name });
+                };
+                reader.readAsDataURL(file);
+            };
+            input.click();
+        }
+    });
+</script>

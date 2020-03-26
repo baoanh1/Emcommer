@@ -19,14 +19,12 @@ namespace Ecommerce.Data.Extensions
 
             modelBuilder.Entity<Product>().HasData
            (
-               new Product { ID = 1, Name = "Iphone 6", categoryID = 1},
-               new Product { ID = 2, Name = "Iphone 7" , categoryID = 2}
+               new Product() { ID = 1, Name = "Iphone 6", categoryID = 1},
+               new Product() { ID = 2, Name = "Iphone 7" , categoryID = 2}
            );
             modelBuilder.Entity<ProductInCategory>().HasData
               (
-                  new ProductInCategory { ProductID = 1, ProductCategoryID = 1},
-                  new ProductInCategory { ProductID = 1, ProductCategoryID = 2 },
-                   new ProductInCategory { ProductID = 2, ProductCategoryID = 1 }
+                  new ProductInCategory() { ProductID = 1, ProductCategoryID = 1}
               );
 
 

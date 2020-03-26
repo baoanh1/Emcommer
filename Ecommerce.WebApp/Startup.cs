@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Ecommerce.Application.Catalog.Products;
+using Ecommerce.Application.Common;
 using Ecommerce.Application.Services.DependencyInjection;
 using Ecommerce.Data.EF;
 using Ecommerce.Data.Entities;
@@ -44,7 +45,8 @@ namespace Ecommerce.WebApp
 			{
 				options.UseSqlite("Data Source=Ecomerce.db");
 			});
-            
+            services.AddTransient<IStorageService, FileStorageService>();
+            services.AddTransient<IManageProductSevice, ManageProductService>();
             //var sv = services.AddSendGridEmailSender();
             services.AddControllersWithViews();
             

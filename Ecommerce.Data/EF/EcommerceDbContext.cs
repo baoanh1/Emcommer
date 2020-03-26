@@ -41,7 +41,7 @@ namespace Ecommerce.Data.EF
         public DbSet<Product> Products { get; set; }
         public DbSet<AppUser> AppUsers { get; set; }
         public DbSet<AppRole> AppRoles { get; set; }
-        public DbSet<ProductCategory> ProductCategorys { get; set; }
-        public DbSet<ProductInCategory> ProductIncategorys { get; set; }
+        public DbSet<ProductCategory> ProductCategories { get; set; }
+        public DbSet<ProductInCategory> ProductIncategories { get; set; }
     }
 }

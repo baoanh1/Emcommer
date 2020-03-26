@@ -5,11 +5,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Hosting" Version="2.2.7" />
+    <PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="3.1.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.2" />
+    <PackageReference Include="Microsoft.AspNetCore.App"/>
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Ecommerce.Data\Ecommerce.Data.csproj" />
+    <ProjectReference Include="..\Ecommerce.Utilities\Ecommerce.Utilities.csproj" />
     <ProjectReference Include="..\Ecommerce.ViewModels\Ecommerce.ViewModels.csproj" />
   </ItemGroup>
 

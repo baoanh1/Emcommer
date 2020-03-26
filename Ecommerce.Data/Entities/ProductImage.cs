@@ -14,7 +14,7 @@ namespace Ecommerce.Data.Entities
         public int DisplayOrder { get; set; }
         public string Caption { get; set; }
         public bool IsDefault { get; set; }
-        public int FileSize { get; set; }
+        public long FileSize { get; set; }
         public DateTime CreatedDate { get; set; }
 
         public DateTime ModifiedDate { get; set; }
